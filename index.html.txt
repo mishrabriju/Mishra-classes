@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lecture Stream - Password Protected</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    #message { color: #ff5050; font-size: 20px; margin-top: 30px; }
+    #passwordForm { margin-top: 30px; }
+    input[type="password"] { padding: 8px; font-size: 16px; }
+    button { padding: 8px 15px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>📺 Lecture Stream (Only Today)</h2>
+  <div id="message"></div>
+  <div id="passwordForm">
+    <input type="password" id="passwordInput" placeholder="Enter Password">
+    <button onclick="checkPassword()">Submit</button>
+  </div>
+  <div id="videoContainer" style="display:none;">
+    <iframe 
+      src="https://drive.google.com/file/d/1-8w_TxZhigap97PQvG_-Zjr_MQBedqVW/preview"
+      width="640" height="360" allow="autoplay"></iframe>
+  </div>
+  <script>
+    // Allowed date: 2025-06-23 (UTC)
+    const allowedDate = '2025-06-23';
+    const today = new Date();
+    const yyyy = today.getUTCFullYear();
+    const mm = String(today.getUTCMonth()+1).padStart(2, '0');
+    const dd = String(today.getUTCDate()).padStart(2, '0');
+    const currentDate = `${yyyy}-${mm}-${dd}`;
+
+    const PASSWORD = "Brijesh@123";
+    const message = document.getElementById('message');
+    const videoContainer = document.getElementById('videoContainer');
+    const passwordForm = document.getElementById('passwordForm');
+
+    function checkPassword() {
+      const userInput = document.getElementById('passwordInput').value;
+      if (userInput === PASSWORD) {
+        passwordForm.style.display = 'none';
+        if (currentDate === allowedDate) {
+          videoContainer.style.display = 'block';
+          message.style.display = 'none';
+        } else {
+          message.textContent = "Lecture available only on 23 June 2025.";
+          videoContainer.style.display = 'none';
+        }
+      } else {
+        message.textContent = "Wrong password. Try again.";
+      }
+    }
+  </script>
+</body>
+</html>
