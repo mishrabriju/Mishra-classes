@@ -1,0 +1,57 @@
+<!DOCTYPE html><html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lecture Stream - Password Protected</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+    #message { color: #ff5050; font-size: 20px; margin-top: 30px; }
+    #passwordForm { margin-top: 30px; }
+    input[type="password"] { padding: 8px; font-size: 16px; }
+    button { padding: 8px 15px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>📺t Misra Class Stream (12 PM only, 23 June)</h2>
+  <div id="message"></div>
+  <div id="passwordForm">
+    <input type="password" id="passwordInput" placeholder="Enter Password">
+    <button onclick="checkPassword()">Submit</button>
+  </div>
+  <div id="videoContainer" style="display:none; margin-top: 20px;">
+    <iframe 
+      src="https://drive.google.com/file/d/1-8w_TxZhigap97PQvG_-Zjr_MQBedqVW/preview"
+      width="640" height="360" allow="autoplay">
+    </iframe>
+  </div>
+  <script>
+    const allowedDate = '2025-06-23';
+    const allowedHour = 12; // 12 PM
+    const PASSWORD = "BRIJESHEDREETAAAAA";const message = document.getElementById('message');
+const videoContainer = document.getElementById('videoContainer');
+const passwordForm = document.getElementById('passwordForm');
+
+function checkPassword() {
+  const userInput = document.getElementById('passwordInput').value;
+  if (userInput === PASSWORD) {
+    passwordForm.style.display = 'none';
+    const now = new Date();
+    const yyyy = now.getUTCFullYear();
+    const mm = String(now.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(now.getUTCDate()).padStart(2, '0');
+    const currentHour = now.getUTCHours();
+    const currentDate = `${yyyy}-${mm}-${dd}`;
+
+    if (currentDate === allowedDate && currentHour === allowedHour) {
+      videoContainer.style.display = 'block';
+      message.style.display = 'none';
+    } else {
+      message.textContent = "Lecture will be available only on 23 June 2025 at 12:00 PM (UTC).";
+    }
+  } else {
+    message.textContent = "Wrong password. Try again.";
+  }
+}
+
+  </script>
+</body>
+</html>
